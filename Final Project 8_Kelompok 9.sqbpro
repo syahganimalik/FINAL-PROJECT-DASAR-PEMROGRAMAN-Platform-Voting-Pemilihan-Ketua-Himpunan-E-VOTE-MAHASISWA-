@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="Final Project 8_Kelompok 9.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1476"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="admin" custom_title="0" dock_id="1" table="4,5:mainadmin"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000011300ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">-- ==========================================
+-- DATABASE E-VOTE HIMPUNAN MAHASISWA TEKNIK INDUSTRI (ANGKATAN 26)
+-- ==========================================
+
+CREATE TABLE IF NOT EXISTS pemilih (
+    nim TEXT PRIMARY KEY,
+    nama TEXT NOT NULL,
+    program_studi TEXT NOT NULL,
+    angkatan INTEGER NOT NULL,
+    sudah_memilih INTEGER DEFAULT 0,
+    tanggal_vote TEXT
+);
+
+CREATE TABLE IF NOT EXISTS kandidat (
+    id_kandidat INTEGER PRIMARY KEY AUTOINCREMENT,
+    nama_calon TEXT NOT NULL,
+    program_studi TEXT NOT NULL,
+    angkatan INTEGER NOT NULL,
+    visi TEXT NOT NULL,
+    misi TEXT NOT NULL,
+    total_suara INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS admin (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS pengaturan_pemilu (
+    id INTEGER PRIMARY KEY,
+    status_pemilu TEXT NOT NULL
+);
+
+-- Akun Default Admin
+INSERT OR IGNORE INTO admin (id, username, password) 
+VALUES (1, 'admin', 'admin123');
+
+-- Status Awal Pemilu
+INSERT OR IGNORE INTO pengaturan_pemilu (id, status_pemilu) 
+VALUES (1, 'AKTIF');
+
+-- Reset &amp; Isi Data 3 Kandidat (Angkatan 2026)
+DELETE FROM kandidat;
+INSERT INTO kandidat (id_kandidat, nama_calon, program_studi, angkatan, visi, misi, total_suara) VALUES 
+(1, 'Dion Imanuel Putra', 'Teknik Industri', 2026, 'Mewujudkan Himpunan Mahasiswa Teknik Industri yang inovatif, adaptif, dan berdaya saing.', '1. Meningkatkan kompetensi keilmuan Teknik Industri\n2. Memperluas jejaring kolaborasi industri\n3. Transparansi dan efisiensi tata kelola organisasi', 0),
+(2, 'Reza Ahmad', 'Teknik Industri', 2026, 'Membawa Himpunan Mahasiswa Teknik Industri menuju sistem kerja yang efektif dan berdampak.', '1. Optimalisasi sistem kerja organisasi\n2. Mendorong inovasi dan riset mahasiswa\n3. Meningkatkan kepedulian sosial masyarakat', 0),
+(3, 'Kezia Awwliya', 'Teknik Industri', 2026, 'Menjadikan Himpunan Mahasiswa Teknik Industri lebih solid, produktif, dan prestatif.', '1. Memperkuat solidaritas antar angkatan\n2. Menghadirkan program kerja berkualitas\n3. Pengembangan soft skill dan kepemimpinan', 0);
+
+-- Reset &amp; Isi 5 Data Pemilih Awal (Dimas, Rio, Satria, Hilman, Gifari - Awalan NIM 26)
+DELETE FROM pemilih;
+INSERT INTO pemilih (nim, nama, program_studi, angkatan, sudah_memilih, tanggal_vote) VALUES
+('2610631140001', 'Dimas', 'Teknik Industri', 2026, 0, NULL),
+('2610631140002', 'Rio', 'Teknik Industri', 2026, 0, NULL),
+('2610631140003', 'Satria', 'Teknik Industri', 2026, 0, NULL),
+('2610631140004', 'Hilman', 'Teknik Industri', 2026, 0, NULL),
+('2610631140005', 'Gifari', 'Teknik Industri', 2026, 0, NULL);
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
